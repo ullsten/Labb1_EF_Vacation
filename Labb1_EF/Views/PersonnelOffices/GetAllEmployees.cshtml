@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Labb1_EF.Models.PersonnelOffice>
+
+@{
+    ViewData["Title"] = "GetAllEmployees";
+}
+
+<h1>GetAllEmployees</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveApplications)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Addresses.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departments.DepartmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveApplications.LeaveApplicationListId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonnelOfficeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonnelOfficeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonnelOfficeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

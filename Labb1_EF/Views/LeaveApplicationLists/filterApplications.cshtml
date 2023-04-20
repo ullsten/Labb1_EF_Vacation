@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Labb1_EF.Models.LeaveApplicationList>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Leave applications</h1>
+
+<p>
+    <a asp-action="Create">Create new leave application</a>
+</p>
+<form asp-action="filterApplications" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Start date: <input type="date" name="searchStart" value="@ViewData["CurrentStartFilter"]" />
+            End date: <input type="date" name="searchEnd" value="@ViewData["CurrentEndFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            @Html.DisplayNameFor(model => model.LeaveApplicationListId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveTypes)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveApplicationListId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.NumberOfDays)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveTypes.LeaveTypeName)
+            </td>
+            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LeaveApplicationListId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LeaveApplicationListId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LeaveApplicationListId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

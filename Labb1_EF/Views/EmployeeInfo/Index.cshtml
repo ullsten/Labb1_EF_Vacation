@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Labb1_EF.Models.EmployeeViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Employees in Labb1_EF AB</h3>
+
+<p>
+    <a asp-controller="Employees" asp-action="Create">Add new employee</a> |
+    <a asp-controller="LeaveApplicationLists" asp-action="index">Search applications by date</a>
+</p>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Im a modal
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.PersonalNumber)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.DateOfHire)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Salary)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DistinctBy(e => e.EmployeeId))
+        {
+            string selectedRow = "";
+            if (item.EmployeeId == (int?)ViewData["EmployeeId"])
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonalNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfHire)
+                </td>
+                <td>
+                    @string.Format("{0:C}", item.Salary).Replace("$", "SEK")
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.EmployeeId">Select</a> |
+                    <a asp-controller="Employees" asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
+                    <a asp-controller="Employees" asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
+                    <a asp-controller="Employees" asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (ViewData["EmployeeId"] == null)
+{
+    <div class="alert alert-info" role="alert">Please select an employee to view their leave applications.</div>
+}
+else if (!Model.Any(l => l.EmployeeId == (int)ViewData["EmployeeId"]))
+
+{
+    <div class="alert alert-warning" role="alert">The selected employee has no leave applications.</div>
+}
+else
+{
+    <h3>Leave applications for selected employee:</h3>
+    <table class="table bg-info rounded">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().LeaveApplicationListId)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().EndDate)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CreatedAt)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().NumberOfDays)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().LeaveTypeName)</th>
+        </tr>
+        @foreach (var item in Model.Where(l => l.EmployeeId == (int)ViewData["EmployeeId"]).DistinctBy(l => l.LeaveApplicationListId))
+        {
+            string selectedRow = "";
+            if (item.LeaveApplicationListId == (int?)ViewData["EmployeeId"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.LeaveApplicationListId
+                </td>
+                <td>
+                    @item.StartDate
+                </td>
+                <td>
+                    @item.EndDate
+                </td>
+                <td>
+                    @item.CreatedAt
+                </td>
+                <td>@item.NumberOfDays</td>
+                <td>
+                    @item.LeaveTypeName
+                </td>
+            </tr>
+        }
+    </table>
+}

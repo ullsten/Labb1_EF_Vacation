@@ -1,0 +1,46 @@
+﻿@model Labb1_EF.Models.LeaveApplicationList
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>LeaveApplicationList</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="LeaveApplicationListId" />
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employees" class="control-label"></label>
+                <select asp-for="FK_EmployeeId" class="form-control" asp-items="ViewBag.FK_EmployeeId"></select>
+                <span asp-validation-for="FK_EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LeaveTypes.LeaveTypeName" class="control-label"></label>
+                <select asp-for="FK_LeaveTypeId" class="form-control" asp-items="ViewBag.FK_LeaveTypeId"></select>
+                <span asp-validation-for="FK_LeaveTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

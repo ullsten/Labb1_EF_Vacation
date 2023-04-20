@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Labb1_EF.Models.PersonnelOffice>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Employees by Labb1_EF AB</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.DateOfHire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.PersonalNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees.Gender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Addresses.StreetAddress),
+                <p>
+                   @Html.DisplayFor(modelItem => item.Addresses.PostalCode),
+                   @Html.DisplayFor(modelItem => item.Addresses.City)
+                </p>
+                <p>@Html.DisplayFor(modelItem => item.Addresses.Country)</p>
+            </td>
+            <td>
+                   @Html.DisplayFor(modelItem => item.Employees.Email)
+            </td>
+            <td>
+                   @Html.DisplayFor(modelItem => item.Employees.DateOfHire)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Departments.DepartmentName)
+            </td>
+            <td>
+                    @string.Format("{0:C}", item.Employees.Salary).Replace("$", "SEK")
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employees.PersonalNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employees.Gender)
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonnelOfficeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonnelOfficeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonnelOfficeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
