@@ -4,23 +4,52 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Leave applications</h1>
+<h3>Labb1_EF AB compilation of leave applications</h3>
 
-<p>
-    <a asp-action="Create">Create new leave application</a>
-</p>
+<div class="form-group mt-3">
+    <a asp-action="Create" class="btn btn-info">Create new leave application</a>
+</div>
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "Error!",
+            text: "@TempData["ErrorMessage"]",
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+    </script>
+}
+
 <form asp-action="filterApplications" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Start date: <input type="date" name="searchStart" value="@ViewData["CurrentStartFilter"]" />
-            End date: <input type="date" name="searchEnd" value="@ViewData["CurrentEndFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
-        </p>
+    <div class="form-actions no-color w-25 mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="searchStart">Start Date:</label>
+                    <input class="form-control" type="date" id="searchStart" name="searchStart" value="@ViewData["CurrentStartFilter"]" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="searchEnd">End Date:</label>
+                    <input class="form-control" type="date" id="searchEnd" name="searchEnd" value="@ViewData["CurrentEndFilter"]" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mt-3">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to Full List</a>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 
-<table class="table">
+
+<table class="table bg-white opacity-75 mt-3">
     <thead>
         <tr>
             <th>
@@ -49,7 +78,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderByDescending(l => l.CreatedAt)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LeaveApplicationListId)

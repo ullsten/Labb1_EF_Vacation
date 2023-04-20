@@ -114,15 +114,15 @@ namespace Labb1_EF.Data
 
             var leaveApplication = new LeaveApplicationList[]
             {
-                new LeaveApplicationList {FK_EmployeeId = 1, FK_LeaveTypeId = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(10)},
-                new LeaveApplicationList {FK_EmployeeId = 2, FK_LeaveTypeId = 2, StartDate = DateTime.Now.AddMonths(-2), EndDate = DateTime.Now.AddDays(10)},
-                new LeaveApplicationList {FK_EmployeeId = 3, FK_LeaveTypeId = 3, StartDate = DateTime.Now.AddMonths(-1), EndDate = DateTime.Now.AddDays(5)},
-                new LeaveApplicationList {FK_EmployeeId = 4, FK_LeaveTypeId = 4, StartDate = DateTime.Now.AddDays(-20), EndDate = DateTime.Now.AddMonths(3)},
-                new LeaveApplicationList {FK_EmployeeId = 5, FK_LeaveTypeId = 5, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(40)},
-                new LeaveApplicationList {FK_EmployeeId = 5, FK_LeaveTypeId = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(10)},
-                new LeaveApplicationList {FK_EmployeeId = 4, FK_LeaveTypeId = 2, StartDate = DateTime.Now.AddMonths(-2), EndDate = DateTime.Now.AddDays(10)},
-                new LeaveApplicationList {FK_EmployeeId = 3, FK_LeaveTypeId = 3, StartDate = DateTime.Now.AddMonths(-1), EndDate = DateTime.Now.AddDays(5)},
-                new LeaveApplicationList {FK_EmployeeId = 2, FK_LeaveTypeId = 4, StartDate = DateTime.Now.AddDays(-20), EndDate = DateTime.Now.AddMonths(3)},
+                new LeaveApplicationList {FK_EmployeeId = 1, FK_LeaveTypeId = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(10), CreatedAt = DateTime.Now.AddMonths(-3)},
+                new LeaveApplicationList {FK_EmployeeId = 2, FK_LeaveTypeId = 2, StartDate = DateTime.Now.AddMonths(-2), EndDate = DateTime.Now.AddDays(10), CreatedAt = DateTime.Now.AddMonths(-1)},
+                new LeaveApplicationList {FK_EmployeeId = 3, FK_LeaveTypeId = 3, StartDate = DateTime.Now.AddMonths(-1), EndDate = DateTime.Now.AddDays(5), CreatedAt = DateTime.Now.AddMonths(-3)},
+                new LeaveApplicationList {FK_EmployeeId = 4, FK_LeaveTypeId = 4, StartDate = DateTime.Now.AddDays(-20), EndDate = DateTime.Now.AddMonths(3), CreatedAt = DateTime.Now.AddMonths(-3)},
+                new LeaveApplicationList {FK_EmployeeId = 5, FK_LeaveTypeId = 5, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(40), CreatedAt = DateTime.Now.AddMonths(-2)},
+                new LeaveApplicationList {FK_EmployeeId = 5, FK_LeaveTypeId = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(10), CreatedAt = DateTime.Now.AddMonths(-2)},
+                new LeaveApplicationList {FK_EmployeeId = 4, FK_LeaveTypeId = 2, StartDate = DateTime.Now.AddMonths(-2), EndDate = DateTime.Now.AddDays(10), CreatedAt = DateTime.Now.AddMonths(-1)},
+                new LeaveApplicationList {FK_EmployeeId = 3, FK_LeaveTypeId = 3, StartDate = DateTime.Now.AddMonths(-1), EndDate = DateTime.Now.AddDays(5), CreatedAt = DateTime.Now.AddMonths(-1)},
+                new LeaveApplicationList {FK_EmployeeId = 2, FK_LeaveTypeId = 4, StartDate = DateTime.Now.AddDays(-20), EndDate = DateTime.Now.AddMonths(3), CreatedAt = DateTime.Now.AddMonths(-1)},
                 new LeaveApplicationList {FK_EmployeeId = 1, FK_LeaveTypeId = 5, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(40)},
             };
             context.LeaveApplications.AddRange(leaveApplication);

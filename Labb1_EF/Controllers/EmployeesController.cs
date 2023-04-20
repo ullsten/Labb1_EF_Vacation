@@ -23,10 +23,6 @@ namespace Labb1_EF.Controllers
         // GET: Employees
         public async Task<IActionResult> Index(int? id, int? leaveID)
         {
-            //return _context.Employees != null ?
-            //    View(await _context.Employees.ToListAsync()) :
-            //    Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
-
             var viewModel = new EmployeeIndexData();
             viewModel.Employees = await _context.Employees
                 .Include(e => e.LeaveApplications)
@@ -79,12 +75,12 @@ namespace Labb1_EF.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName,Email,DateOfHire,Salary,PersonalNumber,Gender,FK_PersonnelOfficeId")] Employee employee)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            //}
             return View(employee);
         }
 

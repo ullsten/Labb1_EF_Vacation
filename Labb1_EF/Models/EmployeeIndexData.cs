@@ -8,6 +8,19 @@ namespace Labb1_EF.Models
 {
     public class EmployeeIndexData
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        [DisplayName("Full Name")]
+        public string FullName => FirstName + " " + LastName;
+        public string Email { get; set; }
+
+        [DisplayName("Personal number")]
+        public string PersonalNumber { get; set; }
+        public string Gender { get; set; }
+        [DisplayName("Hire date")]
+        public DateTime DateOfHire { get; set; }
+        public decimal Salary { get; set; }
         [DisplayName("ID")]
         public int LeaveApplicationListId { get; set; }
         public DateTime Start { get; set; }

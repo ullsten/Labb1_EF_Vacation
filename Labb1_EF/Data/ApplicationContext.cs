@@ -18,6 +18,7 @@ namespace Labb1_EF.Data
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveApplicationList> LeaveApplications { get; set; }
         public DbSet<PersonnelOffice> PersonnelOffices { get; set; }
+        //public DbSet<EmployeeViewModel> EmployeeViewModel { get; set; } = default!;
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

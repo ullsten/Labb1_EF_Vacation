@@ -1,51 +1,21 @@
-﻿@*@model IEnumerable<Labb1_EF.Models.Employee>*@
-@model Labb1_EF.Models.EmployeeIndexData
+﻿@model Labb1_EF.Models.EmployeeIndexData
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h3>Employees in Labb1_EF AB</h3>
+<p class="text-secondary">Selecte employee to see related leave applications</p>
+<div class="form-group mt-3">
+    <a asp-action="Create" class="btn btn-primary">Add new employee</a>
+    <a asp-controller="LeaveApplicationLists" asp-action="index" class="btn btn-secondary">Search applications by date</a>
 
-<p>
-    <a asp-action="Create">Add new employee</a> | 
-    <a asp-controller="LeaveApplicationLists" asp-action="index">Search applications by date</a>
-</p>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-        </div>
-    </div>
 </div>
 
-
-
-<table class="table">
+<table class="table rounded bg-white opacity-75 mt-3">
     <thead>
         <tr>
-            <th>Full name</th>
-            <th>Email</th>
-            <th>Personal number</th>
-            <th>Gender</th>
-            <th>Hire date</th>
-            <th>Salary</th>
-@*              <th>
+              <th>
             @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th>
@@ -62,7 +32,7 @@
             </th>
             <th>
             @Html.DisplayNameFor(model => model.Salary)
-            </th>*@
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -93,10 +63,10 @@
                     @string.Format("{0:C}", item.Salary).Replace("$", "SEK")
                 </td>
                 <td>
-                    <a asp-action="Index" asp-route-id="@item.EmployeeId">Select</a> |
-                    <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                    <a asp-action="Index" asp-route-id="@item.EmployeeId" class="btn btn-primary">Select</a>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.EmployeeId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

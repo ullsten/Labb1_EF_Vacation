@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Labb1_EF.Data;
 using Labb1_EF.Models;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.Data.SqlClient;
 
 namespace Labb1_EF.Controllers
 {
@@ -19,28 +21,34 @@ namespace Labb1_EF.Controllers
             _context = context;
         }
 
-        // GET: All LeaveApplicationLists
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
             var applicationDbContext = _context.LeaveApplications
                    .Include(la => la.Employees)
                    .Include(la => la.LeaveTypes);
-
+ 
             return View(await applicationDbContext.ToListAsync());
         }
-        //method to filter applications by date
-        public async Task<IActionResult> filterApplications(DateTime? searchStart, DateTime? searchEnd)
+
+        public async Task<IActionResult> filterApplications([Required] DateTime? searchStart, [Required] DateTime? searchEnd)
         {
+
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Please choose a start and end date.";
+                return RedirectToAction("Index"); // Redirect to the index action
+            }
 
             ViewData["CurrentStartFilter"] = searchStart;
             ViewData["CurrentEndFilter"] = searchEnd;
 
             var applicationDbContext = _context.LeaveApplications
-                   .Include(la => la.Employees)
-                   .Include(la => la.LeaveTypes)
-                   .Where(la => la.CreatedAt >= searchStart && la.CreatedAt <= searchEnd);
+                .Include(la => la.Employees)
+                .Include(la => la.LeaveTypes)
+                .Where(la => la.CreatedAt >= searchStart && la.CreatedAt <= searchEnd);
 
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         // GET: LeaveApplicationLists/Details/5

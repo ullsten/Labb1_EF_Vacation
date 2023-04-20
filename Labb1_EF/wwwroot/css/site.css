@@ -19,11 +19,31 @@ html {
 
 body {
     margin-bottom: 60px;
-    /*  background-image: url(../images/tropicalBeach.jpg);
+      background-image: url(../images/tropicalBeach.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    backdrop-filter:blur(10px*/
-    background: rgb(174,225,238);
-    background: radial-gradient(circle, rgba(174,225,238,1) 29%, rgba(95,97,19,1) 86%);
+    backdrop-filter:blur(10px
+    /*background: #F3904F;*/ /* fallback for old browsers */
+    /*background: -webkit-linear-gradient(to top, #3B4371, #F3904F);*/ /* Chrome 10-25, Safari 5.1-6 */
+    /*background: linear-gradient(to top, #3B4371, #F3904F);*/ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+.Example-btn1 {
+    background-color: #081f2d;
+    border-radius: 29px;
+    border: 1px solid #081F2D;
+    color: white;
+    font-size: 15px;
+    padding: 10px 45px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .Example-btn1:hover {
+        background-color: white;
+        color: #081F2D;
+        border-color: #081F2D;
+        transition: 0.3s;
+    }
+ 

@@ -14,19 +14,19 @@ namespace Labb1_EF.Models
         [Required]
         [StringLength(50)]
         [DisplayName("First Name")]
-        public string FirstName { get; set; }
+        public string ?FirstName { get; set; }
 
         [Required]
         [StringLength(50)]
         [DisplayName("Last Name")]
-        public string LastName { get; set; }
+        public string ?LastName { get; set; }
 
         [DisplayName("Full Name")]
         public string FullName => FirstName + " " + LastName;
 
         [Required]
         [StringLength(50)]
-        public string Email { get; set; }
+        public string ?Email { get; set; }
 
         [Required]
         [DisplayName("Hire Date")]
@@ -41,13 +41,13 @@ namespace Labb1_EF.Models
         [Required]
         [StringLength(15)]
         [DisplayName("Personal Number")]
-        public string PersonalNumber { get; set; }
+        public string ?PersonalNumber { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(maximumLength: 6, MinimumLength = 1)]
-        public string Gender { get; set; }
+        public string ?Gender { get; set; }
 
         public virtual ICollection<LeaveApplicationList>? LeaveApplications { get; set;}
-        public ICollection<PersonnelOffice> personnelOffice { get; set; }
+        public ICollection<PersonnelOffice> ?personnelOffice { get; set; }
     }
 }

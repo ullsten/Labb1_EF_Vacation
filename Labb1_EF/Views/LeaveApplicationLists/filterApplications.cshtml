@@ -4,27 +4,56 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Leave applications</h1>
+<h3>Labb1_EF AB compilation of leave applications</h3>
 
-<p>
-    <a asp-action="Create">Create new leave application</a>
-</p>
+<div class="form-group mt-3">
+    <a asp-action="Create" class="btn btn-light">Create new leave application</a>
+</div>
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "Error!",
+            text: "@TempData["ErrorMessage"]",
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+    </script>
+}
+
 <form asp-action="filterApplications" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Start date: <input type="date" name="searchStart" value="@ViewData["CurrentStartFilter"]" />
-            End date: <input type="date" name="searchEnd" value="@ViewData["CurrentEndFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
-        </p>
+    <div class="form-actions no-color w-50">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="searchStart">Start Date:</label>
+                    <input class="form-control" type="date" id="searchStart" name="searchStart" value="@ViewData["CurrentStartFilter"]" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="searchEnd">End Date:</label>
+                    <input class="form-control" type="date" id="searchEnd" name="searchEnd" value="@ViewData["CurrentEndFilter"]" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mt-3">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Back to Full List</a>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 
-<table class="table">
+
+<table class="table bg-white opacity-75 mt-3">
     <thead>
         <tr>
             <th>
-            @Html.DisplayNameFor(model => model.LeaveApplicationListId)
+                @Html.DisplayNameFor(model => model.LeaveApplicationListId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)
@@ -44,41 +73,42 @@
             <th>
                 @Html.DisplayNameFor(model => model.LeaveTypes)
             </th>
-           
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveApplicationListId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
+        @foreach (var item in Model.OrderByDescending(l => l.CreatedAt))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveApplicationListId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.NumberOfDays)
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employees.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveTypes.LeaveTypeName)
-            </td>
-            
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.LeaveApplicationListId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LeaveApplicationListId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LeaveApplicationListId">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employees.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveTypes.LeaveTypeName)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LeaveApplicationListId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LeaveApplicationListId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LeaveApplicationListId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

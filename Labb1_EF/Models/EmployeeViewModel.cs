@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Labb1_EF.Models
 {
     public class EmployeeViewModel
     {
+        [Key]
+        public int EmployeeViewModelId { get; set; }
         //from Employee
         [DisplayName("Employee Id")]
         public int EmployeeId { get; set; }
@@ -51,7 +54,7 @@ namespace Labb1_EF.Models
         public string City { get; set; }
         public string Country { get; set; }
 
-        //public IEnumerable<Employee> Employees { get; set; }
+        public IEnumerable<Employee> Employees { get; set; }
         //public ICollection<LeaveApplicationList> LeaveApplications { get; set; }
         //public IEnumerable<PersonnelOffice> PersonnelOffice { get; set; }
     }
