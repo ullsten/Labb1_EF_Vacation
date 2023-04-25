@@ -1,30 +1,44 @@
 ﻿using Bogus;
 using Labb1_EF.Data;
 using Labb1_EF.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Labb1_EF.Models.ViewModels;
 
 namespace Labb1_EF.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class EmployeeInfoController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public EmployeeInfoController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public EmployeeInfoController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public async Task<ActionResult> Index1()
-        {
-            return _context.Employees != null ?
-                View(await _context.Employees.ToListAsync()) :
-                Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
-        }
+        //public async Task<ActionResult> Index1()
+        //{
+            
+
+        //    return _context.Employees != null ?
+        //        View(await _context.Employees.ToListAsync()) :
+        //        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+        //}
 
         public async Task<IActionResult> Index(int? id)
         {
+            var emp = (await _userManager
+               .GetUsersInRoleAsync("Employee"))
+               .ToArray();
+
+            var model = new AdminViewModel
+            {
+                Employees = emp,
+            };
             var viewModel = await _context.Employees.Include(e => e.LeaveApplications)
                 .Join(_context.LeaveApplications, emp => emp.EmployeeId, la => la.FK_EmployeeId, (emp, la) => new { emp, la })
                 .Join(_context.Departments, x => x.la.FK_EmployeeId, d => d.DepartmentId, (x, d) => new { x, d })

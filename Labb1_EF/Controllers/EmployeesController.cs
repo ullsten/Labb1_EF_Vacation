@@ -26,6 +26,7 @@ namespace Labb1_EF.Controllers
             _userManager = userManager;
         }
 
+
         // GET: Employees
         public async Task<IActionResult> Index(int? id, int? leaveID)
         {

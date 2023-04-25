@@ -9,20 +9,35 @@ using Labb1_EF.Data;
 using Labb1_EF.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
+using Labb1_EF.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Labb1_EF.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class LeaveApplicationListsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LeaveApplicationListsController(ApplicationDbContext context)
+        public LeaveApplicationListsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index(string sortOrder)
         {
+            var emp = (await _userManager
+              .GetUsersInRoleAsync("Employee"))
+              .ToArray();
+
+            var model = new AdminViewModel
+            {
+                Employees = emp,
+            };
+
             var applicationDbContext = _context.LeaveApplications
                    .Include(la => la.Employees)
                    .Include(la => la.LeaveTypes);
