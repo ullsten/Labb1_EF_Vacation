@@ -7,22 +7,38 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Labb1_EF.Data;
 using Labb1_EF.Models;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Labb1_EF.Models.ViewModels;
 
 namespace Labb1_EF.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public EmployeesController(ApplicationDbContext context)
+        public EmployeesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Employees
         public async Task<IActionResult> Index(int? id, int? leaveID)
         {
+
+            var admin = (await _userManager
+               .GetUsersInRoleAsync("Administrator"))
+               .ToArray();
+
+            var model = new AdminViewModel
+            {
+                Administrators = admin,
+            };
+
             var viewModel = new EmployeeIndexData();
             viewModel.Employees = await _context.Employees
                 .Include(e => e.LeaveApplications)
