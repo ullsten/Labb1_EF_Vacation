@@ -9,7 +9,7 @@ using Labb1_EF.Models.ViewModels;
 
 namespace Labb1_EF.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee, Administrator")]
     public class EmployeeInfoController : Controller
     {
         private readonly ApplicationDbContext _context;

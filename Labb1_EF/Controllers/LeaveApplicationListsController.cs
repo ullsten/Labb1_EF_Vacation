@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Labb1_EF.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee, Administrator")]
     public class LeaveApplicationListsController : Controller
     {
         private readonly ApplicationDbContext _context;

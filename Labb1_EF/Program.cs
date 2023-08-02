@@ -7,7 +7,7 @@ namespace Labb2_EF
     public class Program
     {
         //employee@gmail.com Employee82!
-        //ullzten@gmail.com Gokkster82!
+        //admin@gmail.com Gokkster82!
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

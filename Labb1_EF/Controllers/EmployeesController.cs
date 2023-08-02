@@ -98,7 +98,7 @@ namespace Labb1_EF.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             //}
-            return View(employee);
+            //return View(employee);
         }
 
         // GET: Employees/Edit/5
